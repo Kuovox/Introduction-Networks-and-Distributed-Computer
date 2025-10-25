@@ -1,0 +1,24 @@
+# Docker Compose setup for Anycast TCP demonstration
+# It launches 3 server containers (via --scale) and one client container.
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: anycast-server
+    command: python server.py
+    expose:
+      - "5000"
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: anycast-client
+    container_name: anycast-client
+    command: python client.py
+    depends_on:
+      - server
+
+
