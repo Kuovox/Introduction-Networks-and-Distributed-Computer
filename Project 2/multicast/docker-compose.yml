@@ -1,0 +1,31 @@
+# docker-compose.yml (updated for automatic tcpdump)
+services:
+  sender:
+    build: .
+    container_name: m_sender
+    command: >
+      bash -c "
+      echo '[SENDER] Starting multicast sender...' &&
+      tcpdump -i eth0 udp port 5007 -vv -l &
+      python multicast_sender.py --count 10 --interval 0.5
+      "
+
+  receiver1:
+    build: .
+    container_name: m_receiver1
+    command: >
+      bash -c "
+      echo '[RECEIVER1] Listening with tcpdump...' &&
+      tcpdump -i eth0 udp port 5007 -vv -l &
+      python multicast_receiver.py --duration 15
+      "
+
+  receiver2:
+    build: .
+    container_name: m_receiver2
+    command: >
+      bash -c "
+      echo '[RECEIVER2] Listening with tcpdump...' &&
+      tcpdump -i eth0 udp port 5007 -vv -l &
+      python multicast_receiver.py --duration 15
+      "
