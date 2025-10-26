@@ -68,6 +68,7 @@ curl http://localhost:5000/
 
 ### Step 4: Launch Multiple P2P Nodes
 The following loop spins up 30 nodes (each bound to a unique port).
+Powershell
 ```powershell
 for ($i = 1; $i -le 30; $i++) {
     $port = 5000 + $i
@@ -99,6 +100,7 @@ Each node registers with the bootstrap node and logs its peer list.
 
 ### Step 5: Simulate Peer-to-Peer Messaging
 Use a second loop to send messages between random nodes.
+Powershell
 ```powershell
 for ($j = 1; $j -le 20; $j++) {
     $src = Get-Random -Minimum 1 -Maximum 30
