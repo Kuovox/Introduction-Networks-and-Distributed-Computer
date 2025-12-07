@@ -97,6 +97,7 @@ This launches three nodes:
 ---
 
 ## Testing the System
+Open a Second Terminal to Run Test Commands
 1. Check Node Health
 ```bash
 curl http://localhost:5001/health
@@ -105,13 +106,22 @@ curl http://localhost:5003/health
 ```
 
 2. Upload a File
+Inside your project folder, create a test file:
 ```bash
-curl -X POST -F "file=@test.txt" http://localhost:5001/upload
+echo "hello world" > test.txt
+```
+Upload to node1:
+```bash
+curl -F "file=@test.txt" http://localhost:5001/upload
 ```
 
 3. Download a File
 ```bash
-curl -O http://localhost:5001/download/test.txt
+curl http://localhost:5001/download/test.txt -o downloaded.txt
+```
+Check:
+```bash
+cat downloaded.txt
 ```
 
 4. Store a Key
