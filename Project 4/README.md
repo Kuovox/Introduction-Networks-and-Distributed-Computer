@@ -1,4 +1,4 @@
-# CECS 327 – Project 4: Distributed Hash Table Storage System
+# CECS 327 – Project 4: Distribution and Scalability
 
 **Group Members:**
 - Khoa Vu (030063200)
