@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  node1:
+    build: .
+    container_name: node1
+    environment:
+      - SELF_URL=http://node1:5000
+      - PEERS=http://node1:5000,http://node2:5000,http://node3:5000
+      - PORT=5000
+    ports:
+      - "5001:5000"
+    volumes:
+      - node1_storage:/app/storage
+
+  node2:
+    build: .
+    container_name: node2
+    environment:
+      - SELF_URL=http://node2:5000
+      - PEERS=http://node1:5000,http://node2:5000,http://node3:5000
+      - PORT=5000
+    ports:
+      - "5002:5000"
+    volumes:
+      - node2_storage:/app/storage
+
+  node3:
+    build: .
+    container_name: node3
+    environment:
+      - SELF_URL=http://node3:5000
+      - PEERS=http://node1:5000,http://node2:5000,http://node3:5000
+      - PORT=5000
+    ports:
+      - "5003:5000"
+    volumes:
+      - node3_storage:/app/storage
+
+volumes:
+  node1_storage:
+  node2_storage:
+  node3_storage:
