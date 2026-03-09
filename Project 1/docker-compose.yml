@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  server:
+    build: ./server
+    container_name: dual_protocol_server
+    ports:
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+    networks:
+      - appnet
+
+  client1:
+    build: ./client
+    container_name: client1
+    depends_on:
+      - server
+    networks:
+      - appnet
+
+  client2:
+    build: ./client
+    container_name: client2
+    depends_on:
+      - server
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: bridge
+
+
+# # UDP VERSION
+# version: '3.8'
+# services:
+#   server:
+#     build: ./server
+#     container_name: tcp_server #udp_server 
+#     ports:
+#       - "5000:5000" #maybe specify 5000/udp 
+#     networks:
+#       - appnet
+
+#   client1:
+#     build: ./client
+#     container_name: tcp_client1
+#     depends_on:
+#       - server
+#     networks:
+#       - appnet
+
+#   client2:
+#     build: ./client
+#     container_name: tcp_client2
+#     depends_on:
+#       - server
+#     networks:
+#       - appnet
+
+# networks:
+#   appnet:
+#     driver: bridge
